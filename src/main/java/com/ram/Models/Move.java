@@ -8,5 +8,20 @@ public class Move
 
     private Cell cell;
 
-    private List<Move> listOfMoves;
+    Move(Player player,Cell cell)
+    {
+        this.player = player;
+        this.cell = cell;
+
+    }
+
+    public Cell getCell()
+    {
+        return this.cell;
+    }
+
+    public Player getPlayer()
+    {
+        return this.player;
+    }
 }

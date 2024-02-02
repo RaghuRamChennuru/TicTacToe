@@ -5,6 +5,9 @@ import com.ram.Models.Game;
 import com.ram.Models.Player;
 import com.ram.Models.Types.GAME_STATE;
 import com.ram.Models.Types.PLAYER_TYPE;
+import com.ram.Strategy.ColumnWinningStrategy;
+import com.ram.Strategy.GameWinningStrategy;
+import com.ram.Strategy.RowWinningStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,32 +27,39 @@ public class Main
 
         List<Player> listOfPlayers= new ArrayList<>();
 
-        for(int i=1;i<=players;i++)
+        for(int i=0;i<players;i++)
         {
-            System.out.println("Enter Player "+i+" Details");
+            System.out.println("Enter Player "+i+" Name");
             String name = sc.next();
-            char symbol = sc.next().charAt(1);
+            System.out.println("Enter Player "+i+" Symbol");
+            char symbol = sc.next().charAt(0);
 
-            listOfPlayers.add(new Player(i,name,symbol, PLAYER_TYPE.HUMAN));
+            listOfPlayers.add(new Player(i,name,symbol, PLAYER_TYPE.HUMAN,sc));
         }
+
+        List<GameWinningStrategy> winStrategy = new ArrayList<>();
+
+        winStrategy.add(new ColumnWinningStrategy());
+        winStrategy.add(new RowWinningStrategy());
 
         GameController controller = new GameController();
 
-        Game game = controller.startGame();
+        Game game = controller.startGame(players+1,listOfPlayers,winStrategy);
 
         while(controller.getGameState(game).equals(GAME_STATE.InProgress))
         {
                 controller.printBoard(game);
 
                 System.out.println("Do You Want To Undo - Y/N");
-                char  undo_resp= sc.next().charAt(1);
+                char  undo_resp= sc.next().charAt(0);
 
                 if(undo_resp == 'Y')
                 {
                     controller.undo(game);
+                    continue;
                 }
 
-                controller.makeMove(game);
+              controller.makeMove(game);
 
         }
 

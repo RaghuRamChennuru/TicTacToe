@@ -11,6 +11,24 @@ public class Cell
 
     private Player player;
 
+    Cell(int row,int col)
+    {
+        this.col = col;
+        this.row = row;
+        this.cellState = CELL_STATE.EMPTY; // Initially Empty
+
+    }
+
+    public int getRow()
+    {
+        return this.row;
+    }
+
+    public int getCol()
+    {
+        return this.col;
+    }
+
     public Player getCellPlayer()
     {
         return this.player;
@@ -19,6 +37,16 @@ public class Cell
     public CELL_STATE getCellState()
     {
         return this.cellState;
+    }
+
+    public void setCellState(CELL_STATE cellSate)
+    {
+        this.cellState = cellSate;
+    }
+
+    public void setPlayer(Player player)
+    {
+        this.player = player;
     }
 
     public void printCell()
